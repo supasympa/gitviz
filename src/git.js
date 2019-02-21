@@ -16,7 +16,7 @@ const getFileChangeCounts = (opts = { repoPath: __dirname }) => {
             (a, i) =>
                 (typeof a[i] === 'undefined'
                     ? (a[i] = 1)
-                    : (a[i] = a[i] + 1)) && a,
+                    : (a[i] + 1)) && a,
             {}
         );
 

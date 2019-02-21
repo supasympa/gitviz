@@ -3,6 +3,7 @@ const { resolve } = require('path');
 const argv = require('yargs').argv;
 const { saveFileChangeCounts } = require('./git');
 
+// eslint-disable-next-line
 console.log(argv);
 
 const opts = {
