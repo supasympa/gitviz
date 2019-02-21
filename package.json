@@ -7,9 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Lewis Barclay <lewis.barclay@googlemail.com>",
   "license": "ISC",
   "dependencies": {
-    "gitlog": "^3.1.2"
+    "gitlog": "^3.1.2",
+    "yargs": "^13.2.1"
+  },
+  "repository": "https://github.com/supasympa/gitviz.git",
+  "private": false,
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "prettier": "^1.16.4"
   }
 }
