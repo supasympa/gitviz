@@ -1,6 +1,7 @@
+#!/usr/bin/env node
 const gitlog = require('gitlog');
 
-const changesToFiles = (opts = { repoPath: __dirname }) => {
+const getFileChangeCount = (opts = { repoPath: __dirname }) => {
     const commitMap = gitlog({
         repo: opts.repoPath, 
         number: opts.max || 1999999,
@@ -19,14 +20,27 @@ const changesToFiles = (opts = { repoPath: __dirname }) => {
         .reduce((a, i) => ((a[i[0]] = i[1]) && a), {});
 };
 
+const { writeFileSync } = require('fs');
+const defaultFileOpts = { encoding: 'utf-8' };
+const saveFileChanges = (filePath, gitFileChangeOptions) => writeFileSync(
+    filePath, JSON.stringify(
+        getFileChangeCount(gitFileChangeOptions), 
+        null, 
+        4
+        ), defaultFileOpts
+    );
+
+module.exports.getFileChangeCount = getFileChangeCount;
+module.exports.saveFileChanges = saveFileChanges;
+
 /*
  // EXAMPLE: 
 
-console.log(changesToFiles({
+console.log(getFileChangeCount({
     repoPath: resolve(__dirname, '../../react'),
     top: 10
     })
 );
-*/
 
-module.exports = changesToFiles;
+saveFileChanges(require("path").resolve(process.cwd(), "foobar.json"));
+*/
