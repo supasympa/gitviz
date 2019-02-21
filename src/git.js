@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const gitlog = require('gitlog');
 
-const getFileChangeCount = (opts = { repoPath: __dirname }) => {
+const getFileChangeCounts = (opts = { repoPath: __dirname }) => {
     const commitMap = gitlog({
         repo: opts.repoPath, 
         number: opts.max || 1999999,
@@ -22,7 +22,7 @@ const getFileChangeCount = (opts = { repoPath: __dirname }) => {
 
 const { writeFileSync } = require('fs');
 const defaultFileOpts = { encoding: 'utf-8' };
-const saveFileChanges = (filePath, gitFileChangeOptions) => writeFileSync(
+const saveFileChangeCounts = (filePath, gitFileChangeOptions) => writeFileSync(
     filePath, JSON.stringify(
         getFileChangeCount(gitFileChangeOptions), 
         null, 
@@ -30,8 +30,8 @@ const saveFileChanges = (filePath, gitFileChangeOptions) => writeFileSync(
         ), defaultFileOpts
     );
 
-module.exports.getFileChangeCount = getFileChangeCount;
-module.exports.saveFileChanges = saveFileChanges;
+module.exports.getFileChangeCounts = getFileChangeCounts;
+module.exports.saveFileChangeCounts = saveFileChangeCounts;
 
 /*
  // EXAMPLE: 
@@ -42,5 +42,5 @@ console.log(getFileChangeCount({
     })
 );
 
-saveFileChanges(require("path").resolve(process.cwd(), "foobar.json"));
+saveFileChangeCounts(require("path").resolve(process.cwd(), "foobar.json"));
 */
