@@ -24,5 +24,11 @@ To visualise changes across a code base:
 
 ## References
 
-- https://stackoverflow.com/questions/1828874/generating-statistics-from-git-repository
-- https://blog.riff.org/2015_10_30_git_tip_of_the_day_show_the_hottest_files_in_a_repo
+-   https://stackoverflow.com/questions/1828874/generating-statistics-from-git-repository
+-   https://blog.riff.org/2015_10_30_git_tip_of_the_day_show_the_hottest_files_in_a_repo
+
+### Example
+
+The following command will analyse the changes to `github.com/facebook/react` and write them to a file in the `packages/web`directory.
+
+`packages/cli/src/cli.js -p ./packages/web/git-changes-react.json -r ../react`
