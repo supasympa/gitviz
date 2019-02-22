@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { GitChangesAnalyser }  from './GitChangesAnalyser';
 import gitChangeLog from './git-changes-react.json';
+
 
 class App extends Component {
   render() {
@@ -10,7 +12,7 @@ class App extends Component {
         <header>
           <h1>GitViz</h1>
         </header>
-        <pre style={{textAlign:'left'}}>{JSON.stringify(gitChangeLog, null, 4)}</pre>
+        <GitChangesAnalyser changeLog={gitChangeLog}/>
       </div>
     );
   }
