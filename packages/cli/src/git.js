@@ -16,7 +16,7 @@ const getFileChangeCounts = (opts = { repoPath: __dirname }) => {
             (a, i) =>
                 (typeof a[i] === 'undefined'
                     ? (a[i] = 1)
-                    : (a[i] + 1)) && a,
+                    : (a[i] = a[i] + 1)) && a, // eslint-disable-line
             {}
         );
 
@@ -41,10 +41,9 @@ module.exports.saveFileChangeCounts = saveFileChangeCounts;
 
 /*
  // EXAMPLE: 
-
-console.log(getFileChangeCount({
-    repoPath: resolve(__dirname, '../../react'),
-    top: 10
+console.log(getFileChangeCounts({
+    repoPath: require('path').resolve(__dirname, '../../react'),
+    top: 1000
     })
 );
 
