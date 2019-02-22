@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@supasympa-gitviz/web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
