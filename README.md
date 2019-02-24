@@ -1,26 +1,15 @@
 # Git-Viz Changes
 
-## Aim
+## Visualise changes in a Git repository
 
-To visualise changes across a code base:
+This utility contains tools to visualise and interrogate a Git repository. Specifically it offers tools that help a user find out the following:
 
-1. Install the component in a git directory: npm i gitviz
-2. Run the cli command: gitviz changes
-3. Open the folder ./gitviz/index.html
+1. Most committed files.
+2. Least committed files.
+3. The most stable files.
+4. The most stable directories.
 
-## Steps
-
-### 1. Script the git changes command
-
-### 2. Create a module that wraps the git changes command
-
-### 3. Transform the data from the git changes command into a json object that can be used by a visualiaztion
-
-### 4. Save the data from the git changes command
-
-### 5. Consume the JSON and visualise it with a chart lib
-
-### 6. Add an interface to interrogate the data using React / Hooks
+The data can be useful when considering areas of a repository that can be moved or published separately and consumed as a package.
 
 ## References
 
