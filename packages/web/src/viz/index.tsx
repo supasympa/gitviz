@@ -36,38 +36,11 @@ export const Viz: React.FunctionComponent<VizProps> = (props) => {
         </React.Fragment>
     );
 };
-const chartConfig = {
-    // Dimensions of sunburst.
-    width: 750,
-    height: 600,
-    // radius: Math.min(width, height) / 2,
-
-    // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
-    b: {
-        w: 75,
-        h: 30,
-        s: 3,
-        t: 10,
-    },
-
-    // Mapping of step names to colors.
-    colors: {
-        packages: '#5687d1',
-        product: '#7b615c',
-        search: '#de783b',
-        account: '#6ab975',
-        other: '#a173d1',
-        end: '#bbbbbb',
-    },
-
-    // Total size of all segments; we set this later, after loading the data.
-    totalSize: 0,
-};
 
 const makeViz = (chartNode: any, csvData: any) => {
     // Dimensions of sunburst.
-    var width = 750;
-    var height = 600;
+    var width = 1200;
+    var height = 800;
     var radius = Math.min(width, height) / 2;
 
     // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
