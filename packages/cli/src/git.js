@@ -1,32 +1,35 @@
 #!/usr/bin/env node
 const gitlog = require('gitlog');
 
+const log = o => {
+    console.log(o);
+    return o;
+}
+
 const getFileChangeCounts = (opts = { repoPath: __dirname }) => {
     const commitMap = gitlog({
         repo: opts.repoPath,
         number: opts.max || 1999999,
+        fields: ['committerDate', 'committerDateRel'],
         execOptions: {
             maxBuffer: 99999 * 1024,
         },
     })
-        .map((c) => c.files)
-        .reduce((filesArray, files) => [...filesArray, ...files], [])
-        .sort()
-        .reduce(
-            (a, i) =>
-                (typeof a[i] === 'undefined'
-                    ? (a[i] = 1)
-                    : (a[i] = a[i] + 1)) && a, // eslint-disable-line
-            {}
-        );
+    .map((c) => c.files)
+    .reduce((filesArray, files) => [...filesArray, ...files], [])
+    .sort()
+    .reduce(
+        (a, i) =>
+            (typeof a[i] === 'undefined'
+                ? (a[i] = 1)
+                : (a[i] = a[i] + 1)) && a, // eslint-disable-line
+        {}
+    );
 
-    const foo = Object.keys(commitMap)
-        .map((k) => [k, commitMap[k]])
+    return Object.entries(commitMap)
         .sort((a, b) => b[1] - a[1])
         .slice(0, opts.top || 100)
         .reduce((a, i) => (a[i[0]] = i[1]) && a, {});
-
-    return foo;
 };
 
 const { writeFileSync } = require('fs');
