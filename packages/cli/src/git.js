@@ -14,7 +14,32 @@ const dedupe = (acc, item) => (
     )
 )
 
+const getChangesForLog = (gitLog) => {
+    return gitLog
+        .reduce((acc, item) => {
+            item.files.forEach(file => {
+                (acc[file] ? 
+                    acc[file].push(new Date(item.committerDate).getTime()): 
+                    acc[file] = [new Date(item.committerDate).getTime()]);
+            });
+            return acc;
+        }, {});
+}
+
+module.exports.getChangesForLog = getChangesForLog;
+
 const getChanges = (opts = { repoPath: __dirname } ) => {
+    return getChangesForLog(gitlog({
+        repo: opts.repoPath,
+        number: opts.max || 1999999,
+        fields: ['committerDate', 'committerDateRel'],
+        execOptions: {
+            maxBuffer: 99999 * 1024,
+        },
+    }));
+}
+
+const __getChanges = (opts = { repoPath: __dirname } ) => {
     // TODO: Add some tests!
     const commitMap = gitlog({
         repo: opts.repoPath,
@@ -36,6 +61,7 @@ const getChanges = (opts = { repoPath: __dirname } ) => {
             ...{shortDate}
         }
     })
+    .map(log)
     .map((item) => {
         return {
             shortDate: item.shortDate,
