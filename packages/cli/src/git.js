@@ -20,11 +20,13 @@ const getFileChangeCounts = (opts = { repoPath: __dirname }) => {
             {}
         );
 
-    return Object.keys(commitMap)
+    const foo = Object.keys(commitMap)
         .map((k) => [k, commitMap[k]])
         .sort((a, b) => b[1] - a[1])
         .slice(0, opts.top || 100)
         .reduce((a, i) => (a[i[0]] = i[1]) && a, {});
+
+    return foo;
 };
 
 const { writeFileSync } = require('fs');

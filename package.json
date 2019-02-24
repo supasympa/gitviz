@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "make-json-data": "packages/cli/src/cli.js -p ./packages/web/git-changes-react.json -r ../react -t 999999"
   },
   "keywords": [],
   "author": "Lewis Barclay <lewis.barclay@googlemail.com>",

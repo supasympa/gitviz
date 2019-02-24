@@ -1,13 +1,17 @@
 import React from 'react';
+import { GitChangeLogData } from './GitChangeLog';
+import { Viz } from './viz';
 
 export interface GitChangesAnalyserProps {
-    changeLog: {[key:string]: string | boolean | number }
+    changeLog: GitChangeLogData
 }
 
 export const GitChangesAnalyser: React.FunctionComponent<GitChangesAnalyserProps> = function (props: GitChangesAnalyserProps){
     return (
         <div className='git-changes-analyser'>
-            <pre style={{textAlign:'left'}}>{JSON.stringify(props.changeLog, null, 4)}</pre>
+            <Viz data={props.changeLog} />
+            {/* <pre style={{textAlign:'left'}}>{JSON.stringify(props.changeLog, null, 4)}</pre> */}
         </div>
     );
 };
+

@@ -28,7 +28,7 @@ const opts = {
     max: argv.max || 999999,
     top: argv.top || 100,
 };
-
+console.log(opts);
 saveFileChangeCounts(opts.path, {
     repoPath: opts.repoPath,
     max: opts.max,
