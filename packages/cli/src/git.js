@@ -1,16 +1,66 @@
 #!/usr/bin/env node
 const gitlog = require('gitlog');
+const deepMerge = require('deepmerge');
 
 const log = o => {
     console.log(o);
     return o;
 }
 
-const getFileChangeCounts = (opts = { repoPath: __dirname }) => {
+const dedupe = (acc, item) => (
+    (acc.includes(item) ? 
+        acc : 
+        (acc.push(item)) && acc
+    )
+)
+
+const getChanges = (opts = { repoPath: __dirname } ) => {
+    // TODO: Add some tests!
     const commitMap = gitlog({
         repo: opts.repoPath,
         number: opts.max || 1999999,
         fields: ['committerDate', 'committerDateRel'],
+        execOptions: {
+            maxBuffer: 99999 * 1024,
+        },
+    })
+    .map((item) => {
+        // add a short date
+        const monthName = item.committerDate.substring(4, 7); 
+        const day = item.committerDate.substring(8, 10); 
+        const year = item.committerDate.substring(20, 24);
+        const months = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06', Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12' }
+        const shortDate = `${day}-${months[monthName]}-${year}`;
+        return {
+            ...item,
+            ...{shortDate}
+        }
+    })
+    .map((item) => {
+        return {
+            shortDate: item.shortDate,
+            files: item.files            
+        }
+    })
+    .map(log)
+    .reduce((acc, item) => {
+        return [{
+            ...acc[0],
+            ...{
+                [item.shortDate]: item.files.concat(acc[0].files|| []).reduce(dedupe, [])            
+            }
+        }];
+    }, [{}])
+    .map(log)
+    
+    return commitMap;
+};
+
+const getFileChangeCounts = (opts = { repoPath: __dirname }) => {
+    // TODO: Add some tests!
+    const commitMap = gitlog({
+        repo: opts.repoPath,
+        number: opts.max || 1999999,
         execOptions: {
             maxBuffer: 99999 * 1024,
         },
@@ -41,6 +91,7 @@ const saveFileChangeCounts = (filePath, gitFileChangeOptions) =>
         defaultFileOpts
     );
 
+module.exports.getChanges = getChanges;
 module.exports.getFileChangeCounts = getFileChangeCounts;
 module.exports.saveFileChangeCounts = saveFileChangeCounts;
 
@@ -54,3 +105,6 @@ console.log(getFileChangeCounts({
 
 saveFileChangeCounts(require("path").resolve(process.cwd(), "foobar.json"));
 */
+
+
+// ref: https://github.com/domharrington/node-gitlog

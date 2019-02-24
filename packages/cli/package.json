@@ -11,6 +11,7 @@
   "author": "Lewis Barclay <lewis.barclay@googlemail.com>",
   "license": "ISC",
   "dependencies": {
+    "deepmerge": "^3.2.0",
     "gitlog": "^3.1.2",
     "yargs": "^13.2.1"
   },
