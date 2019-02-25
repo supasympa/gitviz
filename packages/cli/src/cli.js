@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const { resolve } = require('path');
 const yargs = require('yargs');
+
 const { saveFileChangeCounts } = require('./git');
 
 const { argv } = yargs
@@ -16,6 +17,10 @@ const { argv } = yargs
         alias: 't',
         describe: 'The number of entries to return (defaults to 100)'
     })
+    .option('asArray', {
+        alias: 'a',
+        describe: 'Return an array rather than an object (defaults to false)'
+    })    
     .help();
 
 const opts = {
@@ -27,11 +32,13 @@ const opts = {
         : resolve(process.cwd()),
     max: argv.max || 999999,
     top: argv.top || 100,
+    asArray: argv.asArray || false,
 };
-console.log(opts);
+
 saveFileChangeCounts(opts.path, {
     repoPath: opts.repoPath,
     max: opts.max,
-    top: opts.top
+    top: opts.top,
+    asArray: opts.asArray
 });
 
