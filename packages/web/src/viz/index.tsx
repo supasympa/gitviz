@@ -37,7 +37,7 @@ export const Viz: React.FunctionComponent<VizProps> = (props) => {
     );
 };
 
-const makeViz = (chartNode: any, csvData: any) => {
+const makeViz = (chartNode: any, gitData: any) => {
     // Dimensions of sunburst.
     var width = 1200;
     var height = 800;
@@ -86,7 +86,10 @@ const makeViz = (chartNode: any, csvData: any) => {
     // row, and can receive the csv as an array of arrays.
     // d3.text('visit-sequences.csv', function(text: string) {
         // var csv = d3.csvParseRows(text);
-        var json = buildHierarchy(Object.entries(csvData));
+        Object.keys(gitData).forEach(key => (gitData[key] = gitData[key].length));
+        var json = buildHierarchy(Object.entries(gitData));
+        // HACK
+        
         createVisualization(json);
     // });
 

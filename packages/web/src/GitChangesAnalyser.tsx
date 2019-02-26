@@ -1,5 +1,5 @@
 import React from 'react';
-import { GitChangeLogData } from './GitChangeLog';
+import { GitChangeLogData, GitChangeLog } from './GitChangeLog';
 import { Viz } from './viz';
 
 export interface GitChangesAnalyserProps {
