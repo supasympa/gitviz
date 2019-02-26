@@ -1,4 +1,10 @@
-.App {
-  text-align: center;
+body{
+  background-color: rgb(34, 34, 34);
+  color: rgba(232, 232, 232);
+  font-family: 'Montserrat', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+.logo{
+  width:160px;
+  margin:20px 0;
+}
