@@ -40,7 +40,7 @@ describe('git.changesForLog', () => {
             'packages/web/src/viz/index.tsx': [ 1551084919000 ],
             'packages/web/src/viz/viz.css': [ 1551084919000 ]
         };
-        const changes = git.getChangesForLog(gitLog);
+        const changes = git.getChangesForLogAsGraph(gitLog);
         expect(changes).toStrictEqual(expectation);
     })
 });

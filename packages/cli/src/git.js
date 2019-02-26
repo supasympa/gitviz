@@ -10,7 +10,6 @@ const dedupe = (acc, item) =>
     acc.includes(item) ? acc : acc.push(item) && acc;
 
 const getChangesForLogAsGraph = (gitLog) => {
-    console.log('getChangesForLogAsGraph');
     return gitLog.reduce((acc, item) => {
         item.files.forEach((file) => {
             acc[file]
@@ -24,7 +23,6 @@ const getChangesForLogAsGraph = (gitLog) => {
 const getChangesForLogAsArray = (gitLog) => Object.entries(getChangesForLogAsGraph(gitLog));
 
 const getChanges = (opts = { repoPath: __dirname }) => {
-    console.log('opts.repoPath > ', opts.repoPath)
     const log = gitlog({
         repo: opts.repoPath,
         number: opts.max || 1999999,
@@ -48,6 +46,7 @@ const saveFileChangeCounts = (filePath, gitFileChangeOptions) =>
         defaultFileOpts
     );
 
+module.exports.getChangesForLogAsGraph = getChangesForLogAsGraph;
 module.exports.getChanges = getChanges;
 module.exports.saveFileChangeCounts = saveFileChangeCounts;
 
