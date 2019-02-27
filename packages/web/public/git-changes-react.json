@@ -1,0 +1,233 @@
+{
+    "manual-test.js": [
+        1551131983000,
+        1551030067000,
+        1551005604000
+    ],
+    "package.json": [
+        1551131983000,
+        1551005604000,
+        1550995325000,
+        1550872421000,
+        1550868436000,
+        1550792946000,
+        1550787485000,
+        1550735603000
+    ],
+    "packages/cli/src/cli.js": [
+        1551131983000,
+        1550995325000,
+        1550868436000
+    ],
+    "packages/cli/src/git.js": [
+        1551131983000,
+        1551030067000,
+        1551005604000,
+        1550998774000,
+        1550995325000,
+        1550868436000
+    ],
+    "packages/web/git-changes-react.json": [
+        1551131983000,
+        1550872421000,
+        1550869326000
+    ],
+    "yarn.lock": [
+        1551131983000,
+        1550872421000,
+        1550868436000,
+        1550792946000,
+        1550787485000,
+        1550785646000
+    ],
+    "packages/cli/package.json": [
+        1551030067000,
+        1551005604000,
+        1550872421000,
+        1550868436000
+    ],
+    "packages/cli/src/git.test.js": [
+        1551030067000
+    ],
+    "packages/cli/yarn.lock": [
+        1551030067000,
+        1551005604000
+    ],
+    ".gitignore": [
+        1551005604000,
+        1550995216000,
+        1550735603000
+    ],
+    "packages/web/src/viz/index.tsx": [
+        1550998519000,
+        1550995325000
+    ],
+    "packages/web/src/viz/viz.css": [
+        1550998519000,
+        1550995325000
+    ],
+    "README.md": [
+        1550996530000,
+        1550869326000,
+        1550792946000,
+        1550735603000
+    ],
+    "packages/web/package-lock.json": [
+        1550995325000
+    ],
+    "packages/web/package.json": [
+        1550995325000,
+        1550872421000,
+        1550869077000,
+        1550868436000
+    ],
+    "packages/web/src/GitChangeLog.test.ts": [
+        1550995325000
+    ],
+    "packages/web/src/GitChangeLog.ts": [
+        1550995325000
+    ],
+    "packages/web/src/GitChangesAnalyser.tsx": [
+        1550995325000,
+        1550874019000
+    ],
+    "packages/web/src/git-changes-react.json": [
+        1550995325000,
+        1550872421000
+    ],
+    "packages/web/yarn.lock": [
+        1550995325000,
+        1550872421000,
+        1550869077000,
+        1550868436000
+    ],
+    "packages/web/src/App.tsx": [
+        1550874019000,
+        1550872421000,
+        1550869077000
+    ],
+    "packages/web/src/GitChangesAnalyser.test.tsx": [
+        1550874019000
+    ],
+    "packages/web/src/App.css": [
+        1550872421000,
+        1550868436000
+    ],
+    "packages/web/src/logo.svg": [
+        1550872421000,
+        1550868436000
+    ],
+    "packages/web/README.md": [
+        1550869077000,
+        1550868436000
+    ],
+    "packages/web/src/App.test.tsx": [
+        1550869077000
+    ],
+    "packages/web/src/App.test.js": [
+        1550869077000,
+        1550868436000
+    ],
+    "packages/web/src/App.js": [
+        1550869077000,
+        1550868436000
+    ],
+    "packages/web/src/index.css": [
+        1550869077000,
+        1550868436000
+    ],
+    "packages/web/src/index.tsx": [
+        1550869077000
+    ],
+    "packages/web/src/index.js": [
+        1550869077000,
+        1550868436000
+    ],
+    "packages/web/src/react-app-env.d.ts": [
+        1550869077000
+    ],
+    "packages/web/src/serviceWorker.ts": [
+        1550869077000
+    ],
+    "packages/web/src/serviceWorker.js": [
+        1550869077000,
+        1550868436000
+    ],
+    "packages/web/tsconfig.json": [
+        1550869077000
+    ],
+    "package-lock.json": [
+        1550868436000,
+        1550792946000,
+        1550785646000,
+        1550735603000
+    ],
+    "src/git.js": [
+        1550868436000,
+        1550792946000,
+        1550787485000,
+        1550781910000
+    ],
+    "packages/cli/src/index.js": [
+        1550868436000
+    ],
+    "src/index.js": [
+        1550868436000,
+        1550792946000,
+        1550781910000,
+        1550775118000,
+        1550773616000,
+        1550735603000
+    ],
+    "packages/cli/src/setupWebPages.js": [
+        1550868436000
+    ],
+    "packages/web/.gitignore": [
+        1550868436000
+    ],
+    "packages/web/public/favicon.ico": [
+        1550868436000
+    ],
+    "packages/web/public/index.html": [
+        1550868436000
+    ],
+    "packages/web/public/manifest.json": [
+        1550868436000
+    ],
+    "src/cli.js": [
+        1550868436000,
+        1550792946000,
+        1550787485000
+    ],
+    ".eslintrc.json": [
+        1550792946000,
+        1550787485000
+    ],
+    ".prettierrc.json": [
+        1550792946000,
+        1550787485000
+    ],
+    "jsconfig.json": [
+        1550792946000
+    ],
+    ".idea/encodings.xml": [
+        1550787377000,
+        1550735603000
+    ],
+    ".idea/gitviz.iml": [
+        1550787377000,
+        1550735603000
+    ],
+    ".idea/misc.xml": [
+        1550787377000,
+        1550735603000
+    ],
+    ".idea/modules.xml": [
+        1550787377000,
+        1550735603000
+    ],
+    ".idea/vcs.xml": [
+        1550787377000,
+        1550735603000
+    ]
+}
