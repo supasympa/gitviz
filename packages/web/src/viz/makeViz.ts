@@ -63,7 +63,6 @@ export const makeViz = (chartNode: any, gitData: any) => {
     d3.json('./git-changes.json').then((root: any) => {
         Object.keys(root).forEach((key) => (root[key] = root[key].length));
         root = buildHierarchy(Object.entries(root));
-        console.log(root);
         root = d3.hierarchy(root);
 
         root.sum((d: any) => d.size);
@@ -87,12 +86,46 @@ export const makeViz = (chartNode: any, gitData: any) => {
             .append('title')
             .text((d: any) => d.data.name + '\n' + formatNumber(d.value));
 
+        var calcFillColor = function(d: any) {
+
+            var colors: any;
+            const colorpicks = d3.interpolateHcl;
+            const range = d3.range(0,10) as ReadonlyArray<unknown> as ReadonlyArray<string>; //WTF Typescript!?
+            if (!d.parent) {
+                colors = d3.scaleOrdinal(d3.schemeSet1).domain(range)
+                d.color = "rgba(255, 255, 255, 0.25)";
+            } else if (d.children) {
+                var startColor = d3.hcl(d.color).darker(),
+                    endColor   = d3.hcl(d.color).brighter();
+                colors = d3.scaleLinear()
+                        // @ts-ignore
+                        .interpolate(colorpicks)
+                        .range([
+                            startColor.toString(),
+                            endColor.toString()
+                        ])
+                        .domain([0,d.children.length+1]);
+            }
+
+            if (d.children) {
+                d.children.map(function(child: any, i: any) {
+                    return {value: child.value, idx: i};
+                }).sort(function(a: any,b: any) {
+                    return b.value - a.value
+                }).forEach(function(child: any, i: any) {
+                    d.children[child.idx].color = colors(i);
+                });
+            }
+
+            return d.color;
+        };        
+
         newSlice
             .append('path')
             .attr('class', 'main-arc')
-            .style('fill', (d: any) =>
-                color((d.children ? d : d.parent).data.name)
-            )
+            .style('fill', calcFillColor)
+            .style('stroke', 'rgba(0, 0, 0, 0.15)')
+            .style('stroke-width', 1)
             .attr('d', arc as any);
 
         newSlice
@@ -111,8 +144,8 @@ export const makeViz = (chartNode: any, gitData: any) => {
             .attr('xlink:href', (_, i) => `#hiddenArc${i}`)
             .text((d: any) => d.data.name)
             .style('fill', 'none')
-            .style('stroke', 'rgba(255, 255, 255, 0.5)')
-            .style('stroke-width', 1)
+            .style('stroke', 'rgba(255, 255, 255, 0.75)')
+            .style('stroke-width', 5)
             .style('stroke-linejoin', 'round');
 
         text.append('textPath')
@@ -152,7 +185,6 @@ export const makeViz = (chartNode: any, gitData: any) => {
         moveStackToFront(d);
 
         //
-
         function moveStackToFront(elD: any) {
             svg.selectAll('.slice')
                 .filter((d) => d === elD)
@@ -167,10 +199,6 @@ export const makeViz = (chartNode: any, gitData: any) => {
     }
 };
 
-// Take a 2-column CSV and transform it into a hierarchical structure suitable
-// for a partition layout. The first column is a sequence of step names, from
-// root to leaf, separated by hyphens. The second column is a count of how
-// often that sequence occurred.
 function buildHierarchy(csv: any) {
     var root = { name: 'root', children: [] };
     for (var i = 0; i < csv.length; i++) {
@@ -212,11 +240,6 @@ function buildHierarchy(csv: any) {
     }
     return root;
 }
-
-
-const colors  = () => [
-"#3957ff", "#d3fe14", "#c9080a", "#fec7f8", "#0b7b3e", "#0bf0e9", "#c203c8", "#fd9b39", "#888593", "#906407", "#98ba7f", "#fe6794", "#10b0ff", "#ac7bff", "#fee7c0", "#964c63", "#1da49c", "#0ad811", "#bbd9fd", "#fe6cfe", "#297192", "#d1a09c", "#78579e", "#81ffad", "#739400", "#ca6949", "#d9bf01", "#646a58", "#d5097e", "#bb73a9", "#ccf6e9", "#9cb4b6", "#b6a7d4", "#9e8c62", "#6e83c8", "#01af64", "#a71afd", "#cfe589", "#d4ccd1", "#fd4109", "#bf8f0e", "#2f786e", "#4ed1a5", "#d8bb7d", "#a54509", "#6a9276", "#a4777a", "#fc12c9", "#606f15", "#3cc4d9", "#f31c4e", "#73616f", "#f097c6", "#fc8772", "#92a6fe", "#875b44", "#699ab3", "#94bc19", "#7d5bf0", "#d24dfe", "#c85b74", "#68ff57", "#b62347", "#994b91", "#646b8c", "#977ab4", "#d694fd", "#c4d5b5", "#fdc4bd", "#1cae05", "#7bd972", "#e9700a", "#d08f5d", "#8bb9e1", "#fde945", "#a29d98", "#1682fb", "#9ad9e0", "#d6cafe", "#8d8328", "#b091a7", "#647579", "#1f8d11", "#e7eafd", "#b9660b", "#a4a644", "#fec24c", "#b1168c", "#188cc1", "#7ab297", "#4468ae", "#c949a6", "#d48295", "#eb6dc2", "#d5b0cb", "#ff9ffb", "#fdb082", "#af4d44", "#a759c4", "#a9e03a", "#0d906b", "#9ee3bd", "#5b8846", "#0d8995", "#f25c58", "#70ae4f", "#847f74", "#9094bb", "#ffe2f1", "#a67149", "#936c8e", "#d04907", "#c3b8a6", "#cef8c4", "#7a9293", "#fda2ab", "#2ef6c5", "#807242", "#cb94cc", "#b6bdd0", "#b5c75d", "#fde189", "#b7ff80", "#fa2d8e", "#839a5f", "#28c2b5", "#e5e9e1", "#bc79d8", "#7ed8fe", "#9f20c3", "#4f7a5b", "#f511fd", "#09c959", "#bcd0ce", "#8685fd", "#98fcff", "#afbff9", "#6d69b4", "#5f99fd", "#aaa87e", "#b59dfb", "#5d809d", "#d9a742", "#ac5c86", "#9468d5", "#a4a2b2", "#b1376e", "#d43f3d", "#05a9d1", "#c38375", "#24b58e", "#6eabaf", "#66bf7f", "#92cbbb", "#ddb1ee", "#1be895", "#c7ecf9", "#a6baa6", "#8045cd", "#5f70f1", "#a9d796", "#ce62cb", "#0e954d", "#a97d2f", "#fcb8d3", "#9bfee3", "#4e8d84", "#fc6d3f", "#7b9fd4", "#8c6165", "#72805e", "#d53762", "#f00a1b", "#de5c97", "#8ea28b", "#fccd95", "#ba9c57", "#b79a82", "#7c5a82", "#7d7ca4", "#958ad6", "#cd8126", "#bdb0b7", "#10e0f8", "#dccc69", "#d6de0f", "#616d3d", "#985a25", "#30c7fd", "#0aeb65", "#e3cdb4", "#bd1bee", "#ad665d", "#d77070", "#8ea5b8", "#5b5ad0", "#76655e", "#598100", "#86757e", "#5ea068", "#a590b8", "#c1a707", "#85c0cd", "#e2cde9", "#dcd79c", "#d8a882", "#b256f9", "#b13323", "#519b3b", "#dd80de", "#f1884b", "#74b2fe", "#a0acd2", "#d199b0", "#f68392", "#8ccaa0"    
-]
 
 // ref: https://bl.ocks.org/vasturiano/12da9071095fbd4df434e60d52d2d58d
 // ref : https://bl.ocks.org/kerryrodden/766f8f6d31f645c39f488a0befa1e3c8
