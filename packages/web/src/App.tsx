@@ -15,7 +15,7 @@ class App extends Component {
       <div className="App container-fluid">
         <div className="row">
           <div className="col-12">
-            <header>
+            <header style={{ position: 'absolute', top: '0px'}}>
               <div className="bd-brand-logos">
                 <div className="bd-brand-item">
                   <img src="/logos/logo_transparent.png" className="logo"/>
