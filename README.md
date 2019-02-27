@@ -1,4 +1,4 @@
-# Git-Viz
+<img src="./packages/web/public/logos/logo_transparent.png" alt="GitViz" width="300"/>
 
 ## Visualise changes in a Git repository
 
