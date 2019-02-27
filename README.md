@@ -1,20 +1,23 @@
-# Git-Viz Changes
+# Git-Viz
 
 ## Visualise changes in a Git repository
 
-This utility contains tools to visualise and interrogate a Git repository. Specifically it offers tools that help a user find out the following:
+This utility contains tools to create interactive visualisations that help interrogate a Git repository. Specifically it offers tools that help a user find out the following:
 
 1. Most committed files.
 2. Least committed files.
-3. The most stable files.
-4. The most stable directories.
+3. The most stable files. (Not implemented yet)
+4. The most stable directories. (Not implemented yet)
 
-The data can be useful when considering areas of a repository that can be moved or published separately and consumed as a package.
+The data can be useful when considering areas of a repository (a mono-repo specifically) that can be moved or published separately and consumed as a package.
 
 ## References
 
 -   https://stackoverflow.com/questions/1828874/generating-statistics-from-git-repository
 -   https://blog.riff.org/2015_10_30_git_tip_of_the_day_show_the_hottest_files_in_a_repo
+
+### An example visualisation
+![An example visualisation](GitViz.png)
 
 ### Example
 

@@ -13,10 +13,6 @@ export const makeViz = (chartNode: any, gitData: any) => {
         .clamp(true);
 
     const y = d3.scaleSqrt().range([maxRadius * 0.1, maxRadius]);
-
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
-    // const color = d3.scaleOrdinal(d3.schemeRdYlBu);
-    
     const partition = d3.partition();
 
     const arc = d3
@@ -86,16 +82,16 @@ export const makeViz = (chartNode: any, gitData: any) => {
             .append('title')
             .text((d: any) => d.data.name + '\n' + formatNumber(d.value));
 
-        var calcFillColor = function(d: any) {
+        const calcFillColor = function(d: any) {
 
-            var colors: any;
+            let colors: any;
             const colorpicks = d3.interpolateHcl;
             const range = d3.range(0,10) as ReadonlyArray<unknown> as ReadonlyArray<string>; //WTF Typescript!?
             if (!d.parent) {
                 colors = d3.scaleOrdinal(d3.schemeSet1).domain(range)
                 d.color = "rgba(255, 255, 255, 0.25)";
             } else if (d.children) {
-                var startColor = d3.hcl(d.color).darker(),
+                const startColor = d3.hcl(d.color).darker(),
                     endColor   = d3.hcl(d.color).brighter();
                 colors = d3.scaleLinear()
                         // @ts-ignore
@@ -200,24 +196,24 @@ export const makeViz = (chartNode: any, gitData: any) => {
 };
 
 function buildHierarchy(csv: any) {
-    var root = { name: 'root', children: [] };
-    for (var i = 0; i < csv.length; i++) {
-        var sequence = csv[i][0];
-        var size = +csv[i][1];
+    const root = { name: 'root', children: [] };
+    for (let i = 0; i < csv.length; i++) {
+        const sequence = csv[i][0];
+        const size = +csv[i][1];
         if (isNaN(size)) {
             // e.g. if this is a header row
             continue;
         }
-        var parts = sequence.split('/');
-        var currentNode = root;
-        for (var j = 0; j < parts.length; j++) {
-            var children = currentNode['children'];
-            var nodeName = parts[j];
-            var childNode;
+        const parts = sequence.split('/');
+        const currentNode = root;
+        for (let j = 0; j < parts.length; j++) {
+            const children = currentNode['children'];
+            const nodeName = parts[j];
+            let childNode;
             if (j + 1 < parts.length) {
                 // Not yet at the end of the sequence; move down the tree.
-                var foundChild = false;
-                for (var k = 0; k < children.length; k++) {
+                let foundChild = false;
+                for (let k = 0; k < children.length; k++) {
                     if (children[k]['name'] == nodeName) {
                         childNode = children[k];
                         foundChild = true;
