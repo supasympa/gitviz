@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import gitChangeLog from './git-changes-react.json';
-
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-
-import changeLog from './git-changes-react.json'
 import { Viz } from './viz';
 
 
@@ -22,7 +18,7 @@ class App extends Component {
                 </div>
               </div>
             </header>
-            <Viz data={changeLog} />     
+            <Viz />     
           </div> 
         </div>
       </div>
