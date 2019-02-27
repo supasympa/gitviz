@@ -1,5 +1,7 @@
 import * as d3 from 'd3';
 
+// TODO: this whole file needs tests and refactoring!
+
 export const makeViz = (chartNode: any, gitData: any) => {
     const width = window.innerWidth -100,
         height = window.innerHeight -100,
