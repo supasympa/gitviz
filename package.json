@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "make-json-data": "packages/cli/src/cli.js  -p ./packages/web/public/git-changes.json -t 999999 -r .",
-    "start": "npm run make-json-data && cd ./packages/web && npm start"
+    "start": "cd ./packages/web && npm start"
   },
+  "os" : [ "darwin", "linux" ],
   "keywords": [],
   "author": "Lewis Barclay <lewis.barclay@googlemail.com>",
   "license": "ISC",
