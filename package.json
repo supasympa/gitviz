@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "make-json-data": "packages/cli/src/cli.js  -p ./packages/web/public/git-changes.json -t 999999 -r .",
+    "make-json-data": "packages/cli/src/cli.js  -p ./packages/web/public/git-changes.json -t 999999 -r ../react",
     "start": "cd ./packages/web && npm start"
   },
   "os" : [ "darwin", "linux" ],
