@@ -60,7 +60,7 @@ export const makeViz = (chartNode: any, gitLogData: any) => {
         .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
         .on('click', () => focusOn()); // Reset zoom on canvas click
 
-    let root = gitLogData;
+    let root = { ...gitLogData };
     Object.keys(root).forEach((key) => (root[key] = root[key].length));
     root = buildHierarchy(Object.entries(root));
     root = d3.hierarchy(root);
