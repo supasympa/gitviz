@@ -16,3 +16,9 @@
     dominant-baseline: middle;
     text-anchor: middle;
 }
+
+.spinner-border{
+    position: absolute;
+    top:48vh;
+    left: 48vw;
+}

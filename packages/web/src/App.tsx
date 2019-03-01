@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+
+import { gitLogClient } from './viz/GitLogClient';
 import { Viz } from './viz';
 
 
@@ -18,7 +20,7 @@ class App extends Component {
                 </div>
               </div>
             </header>
-            <Viz />     
+            <Viz gitLogClient={gitLogClient()}/>     
           </div> 
         </div>
       </div>
