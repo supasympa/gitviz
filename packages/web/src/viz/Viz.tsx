@@ -18,6 +18,11 @@ export const Viz: React.FunctionComponent<VizProps> = (props) => {
     const [gitLogData, setGitLogData] = useState(null);
     const chart = useRef(null);
 
+    const onDataChange = (d: any) => {
+        // console.log(d);
+        //TODO: do something with the data!
+    } 
+
     useEffect(() => {
         switch (vizState){
             case VizState.BRAND_NEW:
@@ -27,7 +32,7 @@ export const Viz: React.FunctionComponent<VizProps> = (props) => {
                 });
                 break;
             case VizState.LOADED:
-                makeViz(chart.current, gitLogData);//, gitLogData
+                makeViz(chart.current, gitLogData, onDataChange);//, gitLogData
                 break;
             default:
                 throw new Error('An error occurred loading git log data');

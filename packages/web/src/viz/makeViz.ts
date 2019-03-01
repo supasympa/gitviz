@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 // TODO: this whole file needs tests and refactoring!
 
-export const makeViz = (chartNode: any, gitLogData: any) => {
+export const makeViz = (chartNode: any, gitLogData: any, onDataChange: (d: any) => void) => {
     const width = window.innerWidth - 100,
         height = window.innerHeight - 100,
         maxRadius = Math.min(width, height) / 2 - 5;
@@ -66,6 +66,8 @@ export const makeViz = (chartNode: any, gitLogData: any) => {
     root = d3.hierarchy(root);
 
     root.sum((d: any) => d.size);
+
+    onDataChange(root);
 
     const slice = svg.selectAll('g.slice').data(partition(root).descendants());
 
@@ -182,7 +184,7 @@ export const makeViz = (chartNode: any, gitLogData: any) => {
             );
 
         moveStackToFront(d);
-
+        onDataChange(d);
         //
         function moveStackToFront(elD: any) {
             svg.selectAll('.slice')
