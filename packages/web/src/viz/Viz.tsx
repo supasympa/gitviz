@@ -1,7 +1,9 @@
-import { default as React, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { makeViz } from './makeViz';
 import './viz.css';
 import { LogClient, gitLogClient } from './GitLogClient';
+import { Breadcrumb } from './Breadcrumb';
+import { Hierarchy } from './Hierarchy';
 
 export interface VizProps {
     gitLogClient: LogClient;
@@ -16,12 +18,12 @@ export enum VizState {
 export const Viz: React.FunctionComponent<VizProps> = (props) => {
     const [vizState, setVizState] = useState(VizState.BRAND_NEW);
     const [gitLogData, setGitLogData] = useState(null);
+    const [breadcrumb, setBreadcrumb] = useState(([] as string[]));
     const chart = useRef(null);
 
     const onDataChange = (d: any) => {
-        // console.log(d);
-        //TODO: do something with the data!
-    } 
+        setBreadcrumb(d);
+    };
 
     useEffect(() => {
         switch (vizState){
@@ -38,13 +40,17 @@ export const Viz: React.FunctionComponent<VizProps> = (props) => {
                 throw new Error('An error occurred loading git log data');
                 return;    
         }
-    });
+    }, [gitLogData]);
 
     return <React.Fragment >
-        <div ref={chart}>
-            <div className="spinner-border" role="status" style={{width: '7rem', height: '7rem'}} >
-                <span className="sr-only">Loading...</span>
+        <div>
+            <div id="chartContainer" ref={chart}>
+                <div className="spinner-border" role="status" style={{width: '7rem', height: '7rem'}} >
+                    <span className="sr-only">Loading...</span>
+                </div>
             </div>
+            <Breadcrumb path={breadcrumb} />
         </div>
     </React.Fragment>;
 };
+

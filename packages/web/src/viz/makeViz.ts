@@ -1,10 +1,11 @@
 import * as d3 from 'd3';
+import { Hierarchy } from './Hierarchy';
 
 // TODO: this whole file needs tests and refactoring!
 
 export const makeViz = (chartNode: any, gitLogData: any, onDataChange: (d: any) => void) => {
-    const width = window.innerWidth - 100,
-        height = window.innerHeight - 100,
+    const width = window.innerWidth - 150,
+        height = window.innerHeight - 150,
         maxRadius = Math.min(width, height) / 2 - 5;
 
     const formatNumber = d3.format(',d');
@@ -55,8 +56,8 @@ export const makeViz = (chartNode: any, gitLogData: any, onDataChange: (d: any) 
     const svg = d3
         .select(chartNode)
         .append('svg')
-        .style('width', '100vw')
-        .style('height', '100vh')
+        .style('width', '100%')
+        .style('height', '100%')
         .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
         .on('click', () => focusOn()); // Reset zoom on canvas click
 
@@ -67,7 +68,7 @@ export const makeViz = (chartNode: any, gitLogData: any, onDataChange: (d: any) 
 
     root.sum((d: any) => d.size);
 
-    onDataChange(root);
+    onDataChange(['root']);
 
     const slice = svg.selectAll('g.slice').data(partition(root).descendants());
 
@@ -157,7 +158,7 @@ export const makeViz = (chartNode: any, gitLogData: any, onDataChange: (d: any) 
 
     function focusOn(d = { x0: 0, x1: 1, y0: 0, y1: 1 }) {
         // Reset to top-level if no data point specified
-
+    
         const transition = svg
             .transition()
             .duration(750)
@@ -184,7 +185,7 @@ export const makeViz = (chartNode: any, gitLogData: any, onDataChange: (d: any) 
             );
 
         moveStackToFront(d);
-        onDataChange(d);
+        onDataChange(Hierarchy(d).toBreadcrumb([]));
         //
         function moveStackToFront(elD: any) {
             svg.selectAll('.slice')
