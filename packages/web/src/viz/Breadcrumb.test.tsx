@@ -6,7 +6,6 @@ describe('A Viz Component', () => {
     it('should render the expected result, given an object that has root selected', () => {
         const filePath = ['root'];
         const component = shallow(<Breadcrumb path={filePath} />);
-        console.log(component.html());
         expect(component.html()).toEqual(
             '<ol class="breadcrumb"><li class="path_1 breadcrumb-item"><a href="#">root</a></li></ol>'
         );

@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { makeViz } from './makeViz';
-import './viz.css';
-import { LogClient, gitLogClient } from './GitLogClient';
+import { LogClient } from './GitLogClient';
 import { Breadcrumb } from './Breadcrumb';
-import { Hierarchy } from './Hierarchy';
+import { GitStats } from './GitStats';
+
+import './viz.css';
 
 export interface VizProps {
     gitLogClient: LogClient;
@@ -44,6 +45,7 @@ export const Viz: React.FunctionComponent<VizProps> = (props) => {
 
     return <React.Fragment >
         <div>
+            <GitStats gitLogData={gitLogData} />
             <div id="chartContainer" ref={chart}>
                 <div className="spinner-border" role="status" style={{width: '7rem', height: '7rem'}} >
                     <span className="sr-only">Loading...</span>
