@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { makeViz } from './makeViz';
 import { LogClient } from './GitLogClient';
 import { Breadcrumb } from './Breadcrumb';
-import { GitStats } from './GitStats';
+import { GitStats, calculate, filter } from './GitStats';
 
 import './viz.css';
 
@@ -20,10 +20,18 @@ export const Viz: React.FunctionComponent<VizProps> = (props) => {
     const [vizState, setVizState] = useState(VizState.BRAND_NEW);
     const [gitLogData, setGitLogData] = useState(null);
     const [breadcrumb, setBreadcrumb] = useState(([] as string[]));
+    const [gitStats, setGitStats] = useState({});
     const chart = useRef(null);
 
-    const onDataChange = (d: any) => {
-        setBreadcrumb(d);
+    const onDirectoryChange = (breadcrumb: any) => {
+        const path = breadcrumb.join('/').replace(/^root\//, ''); 
+        console.log(path)
+        setBreadcrumb(breadcrumb);
+        setGitStats(
+            calculate(
+             filter({ ...(gitLogData as any), ...{} }, path)  
+                )
+        );
     };
 
     useEffect(() => {
@@ -35,7 +43,7 @@ export const Viz: React.FunctionComponent<VizProps> = (props) => {
                 });
                 break;
             case VizState.LOADED:
-                makeViz(chart.current, gitLogData, onDataChange);//, gitLogData
+                makeViz(chart.current, gitLogData, onDirectoryChange);
                 break;
             default:
                 throw new Error('An error occurred loading git log data');
@@ -45,12 +53,12 @@ export const Viz: React.FunctionComponent<VizProps> = (props) => {
 
     return <React.Fragment >
         <div>
-            <GitStats gitLogData={gitLogData} />
             <div id="chartContainer" ref={chart}>
                 <div className="spinner-border" role="status" style={{width: '7rem', height: '7rem'}} >
                     <span className="sr-only">Loading...</span>
                 </div>
             </div>
+            <GitStats gitDirectoryStats={gitStats} />            
             <Breadcrumb path={breadcrumb} />
         </div>
     </React.Fragment>;

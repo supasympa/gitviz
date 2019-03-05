@@ -1,35 +1,70 @@
 import React from 'react';
 
 export interface GitStatsProps {
-    gitLogData: any
+    gitDirectoryStats: any
 }
 
-export const GitStats: React.FunctionComponent<GitStatsProps> = (props: GitStatsProps) => (
-    <h1>Git Stats</h1>
-);
+export const GitStats: React.FunctionComponent<GitStatsProps> = (props: GitStatsProps) => {
+    if(!props.gitDirectoryStats){
+        return null;
+    }
+    
+    return (
+        <table className="table table-light">
+            <thead>
+                <tr>
+                    <td>Key</td><td>Value</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Avg. commits per file</td><td>{props.gitDirectoryStats.averageCommitsPerFile}</td></tr>
+            </tbody>
+        </table>
+    );
+};
 
-export const filesPerCommitDate = (gitLogChangeData: any) => {
+export const getCommits = (gitLogChangeData: any) => {
     return Object.entries(gitLogChangeData).reduce((acc: any, item: [string, any]) => {
-        const [path, date] = item;
-        (acc[date] ? acc[date].push(path): acc[date] = [path]);
+        let [filePath, commitDateList] = item;
+
+        commitDateList.forEach((commit: number) => {
+            (acc[commit] ? acc[commit].push(filePath): acc[commit] = [filePath]);
+        });
         return acc;
     }, {});
 };
 
-export const calculate = (gitLogChangeData: any) => {
-    const cpf = Object.entries( filesPerCommitDate(gitLogChangeData) );
-    //     .reduce((acc: any, item: any) => {
-    //     const [commitDate, files] = item;
-    //     (acc.commits++);
-    //     acc.commitFiles = item
-    //     return acc;
-    // }, {
-    //     commitToFileRatio: 0,
-    //     commits: 0,
-    //     commitFiles: 0
-    // });    
-
-    return {
-        commitToFileRatio: 10
-    }
+export type GitStats = {
+    averageCommitsPerFile: number,
+    commits: number,
+    committedFiles: number
 };
+
+export const calculate = (gitLogChangeData: any) => {
+    let allCommits: any = [];
+    const commits = getCommits(gitLogChangeData);
+    const cpf = Object.entries( commits ).reduce((stats: GitStats, item: any) => {
+        const [commitDate, files] = item;
+        // @ts-ignore
+        allCommits = [...new Set([...allCommits, ...files])];
+        (stats.commits++);
+        stats.committedFiles = allCommits.length;
+        stats.averageCommitsPerFile = stats.commits / stats.committedFiles; 
+        return stats;
+    }, {
+        averageCommitsPerFile: 0,
+        commits: 0,
+        committedFiles: 0
+    });    
+
+    return cpf;
+};
+
+export const filter = (gitLogChangeData: any, filePath: string) => {
+    return Object.entries(gitLogChangeData)
+        .filter((entries:any) => entries[0].startsWith(filePath))
+        .reduce((acc:any, item: any) => {
+            acc[item[0]] = item[1];
+            return acc;
+        }, {})
+}

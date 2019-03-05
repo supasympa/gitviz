@@ -1,21 +1,57 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { GitStats, calculate } from './Gitstats';
+import { GitStats, calculate, filter } from './GitStats';
 
 describe('GitStats', () => {
     it('renders without crashing', () => {
         const gld = {};
-        const wrapper = shallow(<GitStats gitLogData={gld}/>);
+        const wrapper = shallow(<GitStats gitDirectoryStats={gld}/>);
         expect(wrapper).toBeTruthy();
     });
 
-    it('average commits per file', () => {
-        const gld = getChanges();
-        //GitStats.calculate
-        // const wrapper = shallow(<GitStats gitLogData={gld}/>);
-        expect(calculate(gld)).toEqual({ commitToFileRatio: 10 });
+    it('can calculate average commits per file', () => {
+        expect(calculate(getChanges())).toEqual({ 
+            committedFiles: 8,
+            commits: 311,
+            averageCommitsPerFile: 38.875,            
+        });
     });
+
+    it('can calculate average commits per file', () => {
+        const changes = {
+            'foo/bar.json': [1550610461000],
+            'foo/bar/baz.json': [1550610461000],
+        }
+        expect(calculate(changes)).toEqual({ 
+            committedFiles: 2,
+            commits: 1,
+            averageCommitsPerFile: 0.5,            
+        });
+    });
+
+    it('can calculate average commits per file', () => {
+        const changes = {
+            'foo/bar.json': [1550610461000],
+            'foo/bar/baz.json': [1550610461000],
+            'foo/bar/baz/bang.json': [1550610461000, 1550610462000]
+        }
+        expect(calculate(changes)).toEqual({ 
+            committedFiles: 3,
+            commits: 2,
+            averageCommitsPerFile: 0.6666666666666666,            
+        });
+    });    
+
+    it('can filter commits down based on a specific path', () => {
+        const keys = Object.keys(filter(getChanges(), 'packages/react-dom'));
+        expect(keys).toEqual([
+            'packages/react-dom/src/__tests__/ReactDOMServerPartialHydration-test.internal.js',
+            'packages/react-dom/src/__tests__/ReactDOMServerSuspense-test.internal.js',
+            'packages/react-dom/src/client/ReactDOMHostConfig.js',
+            'packages/react-dom/src/server/ReactPartialRenderer.js'
+        ]);
+    });    
 });
 
 const getChanges = () => (
