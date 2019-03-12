@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 const gitlog = require('gitlog');
 
-const log = (o) => {
+const log = (o: any) => {
     console.log(o);
     return o;
 };
 
-const dedupe = (acc, item) =>
+const dedupe = (acc: any, item: any) =>
     acc.includes(item) ? acc : acc.push(item) && acc;
 
-const getChangesForLogAsGraph = (gitLog) => {
-    return gitLog.reduce((acc, item) => {
-        item.files.forEach((file) => {
+const getChangesForLogAsGraph = (gitLog: any) => {
+    return gitLog.reduce((acc: any, item: any) => {
+        item.files.forEach((file: string) => {
             acc[file]
                 ? acc[file].push(new Date(item.committerDate).getTime())
                 : (acc[file] = [new Date(item.committerDate).getTime()]);
@@ -20,9 +20,9 @@ const getChangesForLogAsGraph = (gitLog) => {
     }, {});    
 }   
 
-const getChangesForLogAsArray = (gitLog) => Object.entries(getChangesForLogAsGraph(gitLog));
+const getChangesForLogAsArray = (gitLog: any) => Object.entries(getChangesForLogAsGraph(gitLog));
 
-const getChanges = (opts = { repoPath: __dirname }) => {
+const getChanges = (opts: any = { repoPath: __dirname }) => {
     const log = gitlog({
         repo: opts.repoPath,
         number: opts.max || 1999999,
@@ -39,7 +39,7 @@ const getChanges = (opts = { repoPath: __dirname }) => {
 
 const { writeFileSync } = require('fs');
 const defaultFileOpts = { encoding: 'utf-8' };
-const saveFileChangeCounts = (filePath, gitFileChangeOptions) =>
+const _saveFileChangeCounts = (filePath: string, gitFileChangeOptions: any) =>
     writeFileSync(
         filePath,
         JSON.stringify(getChanges(gitFileChangeOptions), null, 4),
@@ -48,6 +48,6 @@ const saveFileChangeCounts = (filePath, gitFileChangeOptions) =>
 
 module.exports.getChangesForLogAsGraph = getChangesForLogAsGraph;
 module.exports.getChanges = getChanges;
-module.exports.saveFileChangeCounts = saveFileChangeCounts;
+module.exports.saveFileChangeCounts = _saveFileChangeCounts;
 
 // ref: https://github.com/domharrington/node-gitlog
