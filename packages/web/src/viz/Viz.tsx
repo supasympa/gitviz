@@ -5,7 +5,7 @@ import { Breadcrumb } from './Breadcrumb';
 import { GitStats, calculate, filter } from './GitStats';
 import { withStyles } from '@material-ui/core/styles';
 import './viz.css';
-import { Button, Dialog, TextField, InputAdornment } from '@material-ui/core';
+import { Button, Dialog, TextField, InputAdornment, DialogContent, DialogTitle } from '@material-ui/core';
 
 export interface VizProps {
     gitLogClient: LogClient;
@@ -33,16 +33,20 @@ const styles = (theme: any) => ({
 const DialogAndButton = (props: any) => {
     const { classes } = props;
     const [dialogIsDisplayed, setDialogIsDisplayed] = useState(false);
-    const inp = { startAdornment: <InputAdornment position="start">Kg</InputAdornment> }
+    // const inp = { startAdornment: <InputAdornment position="start">Start Date</InputAdornment> }
     return (
         <React.Fragment>
-        <Dialog open={dialogIsDisplayed}>
+        <Dialog open={dialogIsDisplayed} fullWidth={true} maxWidth={'lg'}
+            onClose={() => setDialogIsDisplayed(!dialogIsDisplayed)}
+        >
+            <DialogTitle id="form-dialog-title">Exclude paths</DialogTitle>
+            <DialogContent>
             <TextField
                 id="outlined-simple-start-adornment"
                 variant="outlined"
-                label="With outlined TextField"
-                InputProps={inp}
+                label="Start Date"
                 />
+            </DialogContent>
         </Dialog>
         <Button
             variant="contained"
