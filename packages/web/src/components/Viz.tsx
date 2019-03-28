@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { makeViz } from './makeViz';
-import { LogClient } from './GitLogClient';
+import { makeViz } from '../makeViz';
+import { LogClient } from '../GitLogClient';
 import { Breadcrumb } from './Breadcrumb';
+import { DialogAndButton } from './DialogAndButton';
 import { GitStats, calculate, filter } from './GitStats';
-import { withStyles } from '@material-ui/core/styles';
 import './viz.css';
-import { Button, Dialog, TextField, InputAdornment, DialogContent, DialogTitle } from '@material-ui/core';
 
 export interface VizProps {
     gitLogClient: LogClient;
@@ -16,51 +15,6 @@ export enum VizState {
     'LOADED',
     'FAILED',
 }
-
-interface DialogAndButtonProps {
-    classes: { [key: string]: string | {} };
-}
-
-const styles = (theme: any) => ({
-    button: {
-        margin: theme.spacing.unit,
-    },
-    input: {
-        display: 'none',
-    },
-});
-
-const DialogAndButton = (props: any) => {
-    const { classes } = props;
-    const [dialogIsDisplayed, setDialogIsDisplayed] = useState(false);
-    // const inp = { startAdornment: <InputAdornment position="start">Start Date</InputAdornment> }
-    return (
-        <React.Fragment>
-        <Dialog open={dialogIsDisplayed} fullWidth={true} maxWidth={'lg'}
-            onClose={() => setDialogIsDisplayed(!dialogIsDisplayed)}
-        >
-            <DialogTitle id="form-dialog-title">Exclude paths</DialogTitle>
-            <DialogContent>
-            <TextField
-                id="outlined-simple-start-adornment"
-                variant="outlined"
-                label="Start Date"
-                />
-            </DialogContent>
-        </Dialog>
-        <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => setDialogIsDisplayed(!dialogIsDisplayed)}
-        >
-            Primary
-        </Button>
-        </React.Fragment>
-    );
-};
-
-const StyledDialogAndButton = withStyles(styles)(DialogAndButton);
 
 export const Viz: React.FunctionComponent<VizProps> = (props) => {
     const [vizState, setVizState] = useState(VizState.BRAND_NEW);
@@ -94,7 +48,9 @@ export const Viz: React.FunctionComponent<VizProps> = (props) => {
 
     return (
         <div>
-            <StyledDialogAndButton />
+            <DialogAndButton>
+                hi there!
+            </DialogAndButton>
             <div id="chartContainer" ref={chart}>
                 <div
                     className="spinner-border"

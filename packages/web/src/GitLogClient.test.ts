@@ -1,6 +1,6 @@
 import { gitLogClient } from './GitLogClient';
 
-import expectGitLog from '../../public/git-changes.json';
+import expectGitLog from '../public/git-changes.json';
 
 describe('A GitLogClient', () => {
     const gcl = gitLogClient();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Viz } from './Viz';
-import { gitLogClient } from './GitLogClient';
+import { gitLogClient } from '../GitLogClient';
 
 
 describe('A Viz Component', () => {
